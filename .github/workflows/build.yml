@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -20,21 +20,26 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install SDK Packages
+      - name: Install SDK + Build Tools
         run: |
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          sdkmanager "platform-tools" \
+                     "platforms;android-34" \
+                     "build-tools;34.0.0"
 
       - name: Accept Licenses
         run: yes | sdkmanager --licenses
 
-      - name: Give permission
+      - name: Grant Permission
         run: chmod +x gradlew
 
+      - name: Clean Project
+        run: ./gradlew clean
+
       - name: Build APK
-        run: ./gradlew assembleDebug --stacktrace --info
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
+          name: SubTrackPro-APK
           path: app/build/outputs/apk/debug/app-debug.apk
