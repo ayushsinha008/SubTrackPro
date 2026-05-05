@@ -33,30 +33,30 @@ object SubTrackWidget : GlanceAppWidget() {
         Column(
             modifier = GlanceModifier
                 .fillMaxSize()
-                .background(ColorProvider(Color(0xFF6750A4)))
+                .background(ColorProvider(Color(0xFF6750A4), Color(0xFF6750A4)))
                 .padding(12.dp)
                 .clickable(actionStartActivity<MainActivity>())
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("SubTrack", style = TextStyle(
-                    color = ColorProvider(Color.White),
+                    color = ColorProvider(Color.White, Color.White),
                     fontWeight = FontWeight.Bold))
                 Spacer(GlanceModifier.defaultWeight())
-                Text("⟳", style = TextStyle(color = ColorProvider(Color.White)),
+                Text("⟳", style = TextStyle(color = ColorProvider(Color.White, Color.White)),
                     modifier = GlanceModifier.clickable(actionRunCallback<RefreshAction>()))
             }
             Spacer(GlanceModifier.height(8.dp))
             if (subs.isEmpty()) {
-                Text("No upcoming", style = TextStyle(color = ColorProvider(Color.White)))
+                Text("No upcoming", style = TextStyle(color = ColorProvider(Color.White, Color.White)))
             } else {
                 LazyColumn {
                     items(subs) { s ->
                         Column(modifier = GlanceModifier.padding(vertical = 4.dp)) {
                             Text(s.name, style = TextStyle(
-                                color = ColorProvider(Color.White),
+                                color = ColorProvider(Color.White, Color.White),
                                 fontWeight = FontWeight.Medium))
                             Text("${DateUtils.format(s.nextBillingDate)} • ₹${"%.2f".format(s.price)}",
-                                style = TextStyle(color = ColorProvider(Color(0xFFE0E0E0))))
+                                style = TextStyle(color = ColorProvider(Color(0xFFE0E0E0), Color(0xFFE0E0E0))))
                         }
                     }
                 }

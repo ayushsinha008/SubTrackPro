@@ -65,9 +65,10 @@ fun HomeScreen(vm: HomeViewModel = hiltViewModel(),
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubCard(sub: SubscriptionEntity, onClick: () -> Unit) {
-    Card(Modifier.fillMaxWidth().padding(vertical = 4.dp), onClick = onClick) {
+    Card(onClick = onClick, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(sub.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
@@ -79,12 +80,12 @@ fun SubCard(sub: SubscriptionEntity, onClick: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpcomingItem(sub: SubscriptionEntity, onClick: () -> Unit) {
     val days = DateUtils.daysBetween(System.currentTimeMillis(), sub.nextBillingDate)
-    Card(Modifier.fillMaxWidth().padding(vertical = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-        onClick = onClick) {
+    Card(onClick = onClick, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
         Row(Modifier.padding(12.dp)) {
             Icon(Icons.Default.Notifications, null)
             Spacer(Modifier.width(8.dp))
